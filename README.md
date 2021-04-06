@@ -43,9 +43,9 @@ make -j2
 sudo apt-get install libboost-all-dev
 ```
 
-2. 进入build/目录，执行操作：
+2. 在生成的build/目录下，执行操作：
 ```
-bin/lmplz -o 3 --verbose header --text test.txt --arpa test.arpa
+bin/lmplz -o 3 --verbose header --text text.txt --arpa text.arpa
 ```
 其中：
 ```
@@ -54,10 +54,14 @@ bin/lmplz -o 3 --verbose header --text test.txt --arpa test.arpa
 –text 训练的语料库，每个句子一行，每个字或词用空格隔开，最好不要包含标点符号以及阿拉伯数字
 –arpa 训练生成的语言模型，在这之后为了减少空间可以将其变成二进制格式
 ```
+如出现如下提示，则需要该命令后添加`--discount_fallback`参数
+```
+This means modified Kneser-Ney smoothing thinks something is weird about your data.  To override this error for e.g. a class-based model, rerun with --discount_fallback
+```
 
 3. 为了节省磁盘存储空间，将 arpa 文件转换为trie二进制文件
 ```
-bin/build_binary trie -a 22 -q 8 -b 8 test.arpa test.klm
+bin/build_binary trie -a 22 -q 8 -b 8 text.arpa text.klm
 ```
 其中：
 ```
